@@ -74,6 +74,7 @@ public class OutputFormatterTest {
 
         File temp = File.createTempFile("test" + dir, "txt");
 
+
         temp.deleteOnExit();
         try(FileOutputStream output = new FileOutputStream(temp)) {
             OutputFormatter formatter = new OutputFormatter(new PrintStream(output));
