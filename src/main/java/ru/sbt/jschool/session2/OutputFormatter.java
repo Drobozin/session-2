@@ -86,10 +86,11 @@ public class OutputFormatter {
             for(int j=0; j<names.length; j++){
                 StringBuilder curBuild = new StringBuilder();
                 curBuild.append("|");
-                if(names[j].length() == columnsLen[j]){
+                if(names[j].length() == columnsLen[j]) {
                     curBuild.append(names[j]);
-                }else{
-                    int leftSpaces = (int)(columnsLen[j] - names[j].length()) / 2;
+                }
+                else{
+                    int leftSpaces = (columnsLen[j] - names[j].length()) / 2;
                     while(leftSpaces-- > 0){
                         curBuild.append(" ");
                     }
@@ -107,11 +108,21 @@ public class OutputFormatter {
                 StringBuilder curBuild = new StringBuilder();
                 resBuild.append("|");
                 if(data[i-1][j] == null){
-                    while(curBuild.length() < columnsLen[j]-1){
-                        curBuild.append(" ");
+                    if(j==0){
+                        curBuild.append("-");
+                        while(curBuild.length() <= columnsLen[j]-1){
+                            curBuild.append(" ");
+                        }
+
+                    }else{
+                        while(curBuild.length() < columnsLen[j]-1){
+                            curBuild.append(" ");
+                        }
+                        curBuild.append("-");
                     }
-                    curBuild.append("-");
-                }else {
+
+                }
+                else {
                     if (data[i - 1][j] instanceof String) {
                         curBuild.append(data[i - 1][j].toString());
                         while (curBuild.length() < columnsLen[j]) {
@@ -123,14 +134,10 @@ public class OutputFormatter {
                             str = sdf.format(data[i - 1][j]);
                         } else if(data[i - 1][j] instanceof Double || data[i - 1][j] instanceof Float) {
 
-
                             //NumberFormat nf = NumberFormat.getNumberInstance(Locale.FRANCE);
                             //DecimalFormat df = (DecimalFormat)nf;
                             //df.applyPattern("###,##0.00");
                             str = decimalFormat.format(Double.valueOf(data[i - 1][j].toString()));
-
-
-
 
                         }else{
                             //str = data[i - 1][j].toString();
